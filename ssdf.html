@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Black Hat</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      background: radial-gradient(ellipse at top, #1b2735 0%, #090a0f 100%);
+      overflow-x: hidden;
+      overflow-y: auto;
+      font-family: "Segoe UI", sans-serif;
+      color: white;
+      padding: 20px 0;
+    }
+
+    /* === Звёздный фон === */
+    .stars {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+      top: 0;
+      left: 0;
+    }
+
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: twinkle 4s infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
+
+    /* === Главный контейнер === */
+    .content {
+      position: relative;
+      width: 818px;
+      min-height: 1614px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      box-shadow: 0 0 40px rgba(0, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      z-index: 1;
+      padding: 40px;
+      margin: 20px 0;
+    }
+
+    /* === Контейнер для гифки === */
+    .profile {
+      position: absolute;
+      top: 80px;
+      left: 80px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid #00e0ff;
+      box-shadow: 0 0 30px rgba(0, 224, 255, 0.6);
+    }
+
+    .profile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* === Контейнер с текстом === */
+    .text {
+      position: absolute;
+      top: 100px;
+      right: 80px;
+      text-align: left;
+      width: 350px;
+    }
+
+    .text h1 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
+
+    .text p {
+      font-size: 1.1rem;
+      color: #d0d0d0;
+      line-height: 1.6;
+    }
+
+    /* === Блоки с информацией === */
+    .info-section {
+      position: absolute;
+      width: calc(100% - 160px);
+      left: 80px;
+      top: 350px;
+    }
+
+    .info-block {
+      margin-bottom: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .divider {
+      width: 623px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #00e0ff, transparent);
+      margin-bottom: 25px;
+      position: relative;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      position: absolute;
+      top: -2px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #00e0ff;
+      box-shadow: 0 0 10px rgba(0, 224, 255, 0.8);
+    }
+
+    .divider::before {
+      left: 0;
+    }
+
+    .divider::after {
+      right: 0;
+    }
+
+    .info-title {
+      font-size: 1.5rem;
+      color: #00e0ff;
+      text-align: center;
+      margin-bottom: 30px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .items-container {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .item-image {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid rgba(0, 224, 255, 0.5);
+      box-shadow: 0 0 15px rgba(0, 224, 255, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .item-image:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(0, 224, 255, 0.6);
+    }
+
+    .item-image.square {
+      border-radius: 10px;
+    }
+
+    .item-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .item-label {
+      font-size: 0.9rem;
+      color: #00e0ff;
+      text-align: center;
+      font-weight: 500;
+      max-width: 100px;
+      word-wrap: break-word;
+    }
+
+    /* Отдельные контейнеры для каждого раздела */
+    .servers-container {
+      background: rgba(0, 224, 255, 0.05);
+      border-radius: 15px;
+      padding: 30px;
+      border: 1px solid rgba(0, 224, 255, 0.2);
+      margin-bottom: 40px;
+    }
+
+    .work-container {
+      background: rgba(0, 224, 255, 0.05);
+      border-radius: 15px;
+      padding: 30px;
+      border: 1px solid rgba(0, 224, 255, 0.2);
+      margin-bottom: 40px;
+    }
+
+    .games-container {
+      background: rgba(0, 224, 255, 0.05);
+      border-radius: 15px;
+      padding: 30px;
+      border: 1px solid rgba(0, 224, 255, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <!-- Звёзды -->
+  <div class="stars" id="stars"></div>
+
+  <!-- Контент -->
+  <div class="content">
+    <div class="profile">
+      <img src="img/baby-cute.gif" alt="Profile GIF">
+    </div>
+    <div class="text">
+      <h1>Black Hat</h1>
+      <p>Привет! Ты посетил мой сайт — тут ты можешь увидеть, на каких серверах я бываю, на чем работаю и во что играю.</p>
+    </div>
+    
+    <!-- Блоки с информацией -->
+    <div class="info-section">
+      <!-- Серверы -->
+      <div class="servers-container">
+        <div class="info-block">
+          <div class="divider"></div>
+          <div class="info-title">На каких серверах бываю</div>
+          <div class="items-container">
+            <div class="item">
+              <div class="item-image">
+                <img src="img/856646640329031721.gif" alt="Elysium">
+              </div>
+              <div class="item-label">Elysium</div>
+            </div>
+            <div class="item">
+              <div class="item-image">
+                <img src="img/IoqB_tO-7rQUsksc3B69VWfm5Zs-ZQOxc3B8WTAxgx6b96oGAfrXaUwAC7RujCEr8an-bInNoJJblo5bCorRzSOf4M_is-Ldefdfbe0uoXF3m8nuHmQfwDtcIDRpVIpqr9euAvkWX-HJmedxjhyQx52p1zXY7JWWHgpqD8Nu4BE66hlGa-436LxyNvwMil1p_yvpg5p03_wLECl02WxrDl.webp" alt="Hatory">
+              </div>
+              <div class="item-label">Hatory</div>
+            </div>
+            <div class="item">
+              <div class="item-image">
+                <img src="img/a_5c1cbaf425cc4a079aaae8140b4da1c3.gif" alt="ARUKU">
+              </div>
+              <div class="item-label">ARUKU</div>
+            </div>
+            <div class="item">
+              <div class="item-image">
+                <img src="img/a_22dec9f014cefe6ec09b03fc315f5d25.webp" alt="XIVIVIDE">
+              </div>
+              <div class="item-label">XIVIVIDE</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Технологии -->
+      <div class="work-container">
+        <div class="info-block">
+          <div class="divider"></div>
+          <div class="info-title">На чем работаю</div>
+          <div class="items-container">
+            <div class="item">
+              <div class="item-image">
+                <img src="img/d30bd94d-d64a-41f8-8cd4-dceb3f01d415.png" alt="C++">
+              </div>
+              <div class="item-label">C++</div>
+            </div>
+            <div class="item">
+              <div class="item-image">
+                <img src="img/68747470733a2f2f692e696d6775722e636f6d2f426970424d51492e706e67.png" alt="JavaScript">
+              </div>
+              <div class="item-label">JavaScript</div>
+            </div>
+            <div class="item">
+              <div class="item-image">
+                <img src="img/django-featured-image.jpg" alt="Django">
+              </div>
+              <div class="item-label">Django</div>
+            </div>
+            <div class="item">
+              <div class="item-image">
+                <img src="img/i (23).webp" alt="PHP">
+              </div>
+              <div class="item-label">PHP</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Игры -->
+      <div class="games-container">
+        <div class="info-block">
+          <div class="divider"></div>
+          <div class="info-title">Во что играю</div>
+          <div class="items-container">
+            <div class="item">
+              <div class="item-image square">
+                <img src="img/sdfdfasfdsdf.jpg" alt="DOTA 2">
+              </div>
+              <div class="item-label">DOTA 2</div>
+            </div>
+            <div class="item">
+              <div class="item-image square">
+                <img src="img/gta-5-7206.png" alt="Game 2">
+              </div>
+              <div class="item-label">GTA 5</div>
+            </div>
+            <div class="item">
+              <div class="item-image square">
+                <img src="img/channels4_profile.png" alt="Game 3">
+              </div>
+              <div class="item-label">Elden Ring</div>
+            </div>
+            <div class="item">
+              <div class="item-image square">
+                <img src="img/IoqB_tO-7rQUsksc3B69VWfm5Zs-ZQOxc3B8WSg5rkfSt74aFL-_YCVwAvRzyW0v8aCibcSFvc8G58cf_-vxzEez2POGt5eoFKYaMPUu1WUns9XuMg1K0UOokajp6De6XgZ36r2O311RcTqBYtTIgvltWwFEkZVCokqPm2dGFKn-ZhV2-3oPuAASRsTQHsEBKzPRAyL4E4TTUMWc2VTrEi.webp" alt="Game 4">
+              </div>
+              <div class="item-label">Hunt: Showdown</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Создание звёзд
+    const starsContainer = document.getElementById('stars');
+    for (let i = 0; i < 150; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      const size = Math.random() * 3;
+      star.style.width = `${size}px`;
+      star.style.height = `${size}px`;
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.top = `${Math.random() * 100}%`;
+      star.style.animationDelay = `${Math.random() * 5}s`;
+      starsContainer.appendChild(star);
+    }
+  </script>
+</body>
+</html>
