@@ -1,222 +1,395 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  body {
-    min-height: 100vh;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    background: radial-gradient(ellipse at top, #1b2735 0%, #090a0f 100%);
-    overflow-x: hidden;
-    overflow-y: auto;
-    font-family: "Segoe UI", sans-serif;
-    color: white;
-    padding: 20px 0;
-  }
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background: radial-gradient(ellipse at top, #1b2735 0%, #090a0f 100%);
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-family: "Segoe UI", sans-serif;
+  color: white;
+  padding: 20px 0;
+}
 
-  /* === Звёздный фон === */
-  .stars {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    overflow: hidden;
+/* === Звёздный фон === */
+.stars {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+}
+
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: twinkle 4s infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+/* === Главный контейнер === */
+.content {
+  position: relative;
+  width: 818px;
+  min-height: 1614px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  z-index: 1;
+  padding: 40px;
+  margin: 20px 0;
+}
+
+/* === Контейнер для гифки === */
+.profile {
+  position: absolute;
+  top: 80px;
+  left: 80px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #00e0ff;
+  box-shadow: 0 0 30px rgba(0, 224, 255, 0.6);
+}
+
+.profile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* === Контейнер с текстом === */
+.text {
+  position: absolute;
+  top: 100px;
+  right: 80px;
+  text-align: left;
+  width: 350px;
+}
+
+.text h1 {
+  font-size: 2.8rem; /* Увеличенный размер */
+  font-weight: bold;
+  margin-bottom: 20px;
+  position: relative;
+  display: inline-block;
+}
+
+.text h1::before {
+  content: 'Black Hat';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #00e0ff, #ffffff, #00e0ff);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 3s ease-in-out infinite;
+  z-index: 2;
+}
+
+.text h1::after {
+  content: 'Black Hat';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: rgba(255, 255, 255, 0.1); /* Очень тусклый белый фон для контраста */
+  z-index: 1;
+}
+
+.text p {
+  font-size: 1.3rem; /* Увеличенный размер */
+  color: #d0d0d0;
+  line-height: 1.6;
+  font-weight: 600; /* Добавлена жирность */
+}
+
+/* Анимация сдвига градиента */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* === Блоки с информацией === */
+.info-section {
+  position: absolute;
+  width: calc(100% - 160px);
+  left: 80px;
+  top: 350px;
+}
+
+.info-block {
+  margin-bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.divider {
+  width: 623px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #00e0ff, transparent);
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00e0ff;
+  box-shadow: 0 0 10px rgba(0, 224, 255, 0.8);
+}
+
+.divider::before {
+  left: 0;
+}
+
+.divider::after {
+  right: 0;
+}
+
+.info-title {
+  font-size: 1.8rem; /* Увеличенный размер */
+  color: #00e0ff;
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.items-container {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.item-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid rgba(0, 224, 255, 0.5);
+  box-shadow: 0 0 15px rgba(0, 224, 255, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.item-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 224, 255, 0.4), transparent);
+  transition: left 0.5s;
+  z-index: 2;
+}
+
+.item-image:hover::before {
+  left: 100%;
+}
+
+.item-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(0, 224, 255, 0.6);
+  filter: brightness(1.2);
+}
+
+.item-image.square {
+  border-radius: 10px;
+}
+
+.item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  z-index: 1;
+  position: relative;
+}
+
+.item-image:hover img {
+  transform: scale(1.05);
+}
+
+.item-label {
+  font-size: 1.1rem; /* Увеличенный размер */
+  color: #00e0ff;
+  text-align: center;
+  font-weight: 600; /* Добавлена жирность */
+  max-width: 100px;
+  word-wrap: break-word;
+  transition: color 0.3s ease;
+}
+
+.item-image:hover + .item-label {
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(0, 224, 255, 0.8);
+}
+
+/* Отдельные контейнеры для каждого раздела */
+.servers-container {
+  background: rgba(0, 224, 255, 0.05);
+  border-radius: 15px;
+  padding: 30px;
+  border: 1px solid rgba(0, 224, 255, 0.2);
+  margin-bottom: 40px;
+}
+
+.work-container {
+  background: rgba(0, 224, 255, 0.05);
+  border-radius: 15px;
+  padding: 30px;
+  border: 1px solid rgba(0, 224, 255, 0.2);
+  margin-bottom: 40px;
+}
+
+.games-container {
+  background: rgba(0, 224, 255, 0.05);
+  border-radius: 15px;
+  padding: 30px;
+  border: 1px solid rgba(0, 224, 255, 0.2);
+}
+
+/* === Медиазапросы === */
+@media (max-width: 1200px) {
+  .content {
+    width: 90%;
+    min-height: auto;
+  }
+  
+  .profile {
+    position: relative;
     top: 0;
     left: 0;
+    margin: 0 auto 30px;
   }
-
-  .star {
-    position: absolute;
-    background: white;
-    border-radius: 50%;
-    opacity: 0.8;
-    animation: twinkle 4s infinite;
-  }
-
-  @keyframes twinkle {
-    0%, 100% { opacity: 0.2; }
-    50% { opacity: 1; }
-  }
-
-  /* === Главный контейнер === */
-  .content {
-    position: relative;
-    width: 818px;
-    min-height: 1614px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 20px;
-    box-shadow: 0 0 40px rgba(0, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    z-index: 1;
-    padding: 40px;
-    margin: 20px 0;
-  }
-
-  /* === Контейнер для гифки === */
-  .profile {
-    position: absolute;
-    top: 80px;
-    left: 80px;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 3px solid #00e0ff;
-    box-shadow: 0 0 30px rgba(0, 224, 255, 0.6);
-  }
-
-  .profile img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  /* === Контейнер с текстом === */
+  
   .text {
-    position: absolute;
-    top: 100px;
-    right: 80px;
-    text-align: left;
-    width: 350px;
+    position: relative;
+    top: 0;
+    right: 0;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 40px;
   }
+  
+  .info-section {
+    position: relative;
+    width: 100%;
+    left: 0;
+    top: 0;
+    padding: 0 20px;
+  }
+  
+  .divider {
+    width: 100%;
+  }
+}
 
+@media (max-width: 768px) {
+  .content {
+    padding: 20px;
+  }
+  
   .text h1 {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #ffffff;
+    font-size: 2.2rem;
   }
-
+  
   .text p {
     font-size: 1.1rem;
-    color: #d0d0d0;
-    line-height: 1.6;
   }
-
-  /* === Блоки с информацией === */
-  .info-section {
-    position: absolute;
-    width: calc(100% - 160px);
-    left: 80px;
-    top: 350px;
-  }
-
-  .info-block {
-    margin-bottom: 80px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .divider {
-    width: 623px;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, #00e0ff, transparent);
-    margin-bottom: 25px;
-    position: relative;
-  }
-
-  .divider::before,
-  .divider::after {
-    content: '';
-    position: absolute;
-    top: -2px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #00e0ff;
-    box-shadow: 0 0 10px rgba(0, 224, 255, 0.8);
-  }
-
-  .divider::before {
-    left: 0;
-  }
-
-  .divider::after {
-    right: 0;
-  }
-
+  
   .info-title {
     font-size: 1.5rem;
-    color: #00e0ff;
-    text-align: center;
-    margin-bottom: 30px;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 2px;
   }
-
+  
   .items-container {
-    display: flex;
-    gap: 30px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .item {
-    display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
   }
-
+  
   .item-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 2px solid rgba(0, 224, 255, 0.5);
-    box-shadow: 0 0 15px rgba(0, 224, 255, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 80px;
+    height: 80px;
   }
-
-  .item-image:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(0, 224, 255, 0.6);
+  
+  .item-label {
+    font-size: 1rem;
   }
+}
 
-  .item-image.square {
-    border-radius: 10px;
+@media (max-width: 480px) {
+  body {
+    padding: 10px 0;
   }
-
-  .item-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  
+  .content {
+    padding: 15px;
   }
-
+  
+  .text h1 {
+    font-size: 1.8rem;
+  }
+  
+  .text p {
+    font-size: 0.9rem;
+  }
+  
+  .info-title {
+    font-size: 1.3rem;
+  }
+  
+  .item-image {
+    width: 70px;
+    height: 70px;
+  }
+  
   .item-label {
     font-size: 0.9rem;
-    color: #00e0ff;
-    text-align: center;
-    font-weight: 500;
-    max-width: 100px;
-    word-wrap: break-word;
   }
-
-  /* Отдельные контейнеры для каждого раздела */
-  .servers-container {
-    background: rgba(0, 224, 255, 0.05);
-    border-radius: 15px;
-    padding: 30px;
-    border: 1px solid rgba(0, 224, 255, 0.2);
-    margin-bottom: 40px;
-  }
-
-  .work-container {
-    background: rgba(0, 224, 255, 0.05);
-    border-radius: 15px;
-    padding: 30px;
-    border: 1px solid rgba(0, 224, 255, 0.2);
-    margin-bottom: 40px;
-  }
-
-  .games-container {
-    background: rgba(0, 224, 255, 0.05);
-    border-radius: 15px;
-    padding: 30px;
-    border: 1px solid rgba(0, 224, 255, 0.2);
-  }
+}
